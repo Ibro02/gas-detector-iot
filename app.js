@@ -93,6 +93,7 @@ alarmButton.addEventListener("click", () => {
 	popup.style.display = "none";
 });
 
+////SOS--------------//
 // let turnOffAlarm;
 // const _turnOffAlarm = database.ref("turnOffAlarm");
 // _turnOffAlarm.on("value", (snapshot) => {

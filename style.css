@@ -38,22 +38,6 @@ background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e
     background: rgba(255, 255, 255, 0.2);
 }
 
-.buttons
-{
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-
-.child-container
-{
-    display: flex;
-    margin: 2rem 0;
-    align-items: center;
-    justify-content: center;
- 
-}
 
 
 h1
@@ -114,6 +98,15 @@ h1
     color: black;
 }
 
+.canvas
+{
+    display: flex;
+    margin: 2rem 0;
+    align-items: center;
+    justify-content: center;
+ 
+}
+
 .settings
 {
 display: flex;
@@ -131,3 +124,13 @@ margin: 0;
     border-color: rgba(147, 147, 147, 0.318);
 }
 
+@media(max-width: 650px)
+{
+h1{
+font-size: 1.5rem;
+    }
+.container
+{
+    padding: 2vh 3rem;
+}
+}
