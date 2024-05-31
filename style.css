@@ -1,8 +1,6 @@
 body
 {
-   background-color: #e5e5f7;
-
-background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 40px ), repeating-linear-gradient( #ff000008, #ff000014 );
+    background: linear-gradient(145deg, #600101d8, #bd0000);
     color: white;
     height: 100vh;
 }
@@ -20,7 +18,7 @@ background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e
 
 .container
 {
-    background: linear-gradient(145deg, #600101d8, #bd0000);
+
     color: rgb(230, 230, 230);
     height: auto;
     margin: auto;
@@ -29,7 +27,7 @@ background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e
     justify-content: center;
     padding: 15vh 13rem;
     gap: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
 }
 .container::before
 {
@@ -123,6 +121,13 @@ margin: 0;
 {
     border-color: rgba(147, 147, 147, 0.318);
 }
+#warning
+{
+    display: none;
+    color: #fb9595;
+    font-weight: 100;
+}
+
 
 @media(max-width: 650px)
 {

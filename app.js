@@ -9,7 +9,7 @@ const firebaseConfig = {
 	appId: "1:739741755800:web:a279e178d36a412359a3ed",
 };
 
-let dataset = [300, 400, 500, 500, 450, 600, 550, 500, 650, 500];
+let dataset = [500, 450, 600, 550, 500, 650, 500];
 
 const timestamps = ["", "", "", "", "", "", ""];
 
@@ -36,9 +36,13 @@ const database = firebase.database();
 
 let gasConcentrationMgPerM3;
 let maxCO;
-
+let turnOffAlarm;
 const _gasConcentrationMgPerM3 = database.ref("gasConcentrationMgPerM3");
 const _maxCO = database.ref("maxCO");
+const _turnOffAlarm = database.ref("turnOffAlarm");
+_turnOffAlarm.on("value", (snapshot) => {
+	turnOffAlarm = snapshot.val();
+});
 
 _maxCO.on("value", (snapshot) => {
 	maxCO = snapshot.val();
@@ -53,14 +57,23 @@ _gasConcentrationMgPerM3.on("value", (snapshot) => {
 		gasConcentrationMgPerM3.toFixed(2) + " mg/m³";
 	//Chart update
 	updateChart(gasConcentrationMgPerM3, new Date().toLocaleTimeString());
+	maxCO = parseFloat(maxCO);
+	gasConcentrationMgPerM3 = parseFloat(gasConcentrationMgPerM3);
 
-	if (maxCO < gasConcentrationMgPerM3) {
+	if (gasConcentrationMgPerM3 > maxCO && !turnOffAlarm) {
 		// Show the popup
 		document.getElementById("popup2").style.display = "block";
-		database.ref("turnOffAlarm").set(false);
+		document.getElementById("warning").style.display = "none";
+
+		//database.ref("turnOffAlarm").set(false);
+	} else if (gasConcentrationMgPerM3 > maxCO && turnOffAlarm) {
+		document.getElementById("warning").style.display = "block";
 	} else {
 		// Hide the popup
+		if (turnOffAlarm) database.ref("turnOffAlarm").set(false);
+
 		document.getElementById("popup2").style.display = "none";
+		document.getElementById("warning").style.display = "none";
 	}
 });
 
@@ -89,8 +102,8 @@ saveButton.addEventListener("click", () => {
 
 alarmButton.addEventListener("click", () => {
 	database.ref("turnOffAlarm").set(true);
-	console.log(inputValue.value);
-	popup.style.display = "none";
+	document.getElementById("popup2").style.display = "none";
+	document.getElementById("warning").style.display = "block";
 });
 
 ////SOS--------------//
@@ -102,6 +115,7 @@ alarmButton.addEventListener("click", () => {
 // document.getElementById("zadatak").addEventListener("click", () => {
 // 	database.ref("turnOffAlarm").set(!turnOffAlarm);
 // });
+
 // Set up the chart
 const myChart = new Chart("myChart", {
 	type: "line",
